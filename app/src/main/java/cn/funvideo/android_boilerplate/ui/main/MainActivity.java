@@ -1,7 +1,7 @@
 package cn.funvideo.android_boilerplate.ui.main;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.List;
@@ -30,14 +30,19 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     public void init() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        ribotsAdapter = new RibotsAdapter();
+        recyclerView.setAdapter(ribotsAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         mainPresenter = new MainPresenter();
         mainPresenter.attachView(this);
+        mainPresenter.loadRibots();
     }
 
     @Override
     public void showRibots(List<Ribot> ribots) {
-
+        ribotsAdapter.setRibots(ribots);
+        ribotsAdapter.notifyDataSetChanged();
     }
 
     @Override
