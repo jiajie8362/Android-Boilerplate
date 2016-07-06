@@ -34,7 +34,7 @@ public class RibotsAdapter extends RecyclerView.Adapter<RibotsAdapter.RibotViewH
 
     @Override
     public int getItemCount() {
-        return ribots.size();
+        return ribots == null ? 0 : ribots.size();
     }
 
     public void setRibots(List<Ribot> ribots) {

@@ -4,23 +4,27 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EActivity;
+
 import java.util.List;
 
 import cn.funvideo.android_boilerplate.R;
 import cn.funvideo.android_boilerplate.data.model.Ribot;
 import cn.funvideo.android_boilerplate.ui.base.BaseActivity;
 
+@EActivity
 public class MainActivity extends BaseActivity implements MainMvpView {
 
-    private MainPresenter mainPresenter;
+    @Bean
+    MainPresenter mainPresenter;
     private RecyclerView recyclerView;
     private RibotsAdapter ribotsAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        init();
     }
 
     @Override
@@ -28,13 +32,13 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         super.onDestroy();
     }
 
+    @AfterViews
     public void init() {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         ribotsAdapter = new RibotsAdapter();
         recyclerView.setAdapter(ribotsAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mainPresenter = new MainPresenter();
         mainPresenter.attachView(this);
         mainPresenter.loadRibots();
     }

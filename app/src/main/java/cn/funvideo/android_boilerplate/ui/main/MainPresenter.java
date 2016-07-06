@@ -1,5 +1,8 @@
 package cn.funvideo.android_boilerplate.ui.main;
 
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EBean;
+
 import java.util.List;
 
 import cn.funvideo.android_boilerplate.data.DataManager;
@@ -10,13 +13,11 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+@EBean
 public class MainPresenter extends BasePresenter<MainMvpView> {
-    private final DataManager dataManager;
+    @Bean
+    DataManager dataManager;
     private Subscription subscription;
-
-    public MainPresenter() {
-        this.dataManager = new DataManager();
-    }
 
 
     @Override

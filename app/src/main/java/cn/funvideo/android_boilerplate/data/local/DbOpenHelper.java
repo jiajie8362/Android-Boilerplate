@@ -1,17 +1,13 @@
 package cn.funvideo.android_boilerplate.data.local;
 
-import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.squareup.sqlbrite.SqlBrite;
-
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
 
-import rx.schedulers.Schedulers;
+import cn.funvideo.android_boilerplate.BoilerplateApplication;
 
 @EBean
 public class DbOpenHelper extends SQLiteOpenHelper {
@@ -22,7 +18,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     Context context;
 
     public DbOpenHelper() {
-        super(getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
+        super(BoilerplateApplication.applicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override

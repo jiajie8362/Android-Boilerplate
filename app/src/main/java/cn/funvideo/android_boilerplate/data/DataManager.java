@@ -11,9 +11,7 @@ import cn.funvideo.android_boilerplate.data.remote.RibotsService;
 import rx.Observable;
 import rx.functions.Func1;
 
-import static org.androidannotations.annotations.EBean.Scope.Singleton;
-
-@EBean(scope = Singleton)
+@EBean
 public class DataManager {
 
     @Bean
