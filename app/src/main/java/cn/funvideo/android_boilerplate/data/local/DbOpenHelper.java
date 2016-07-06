@@ -23,7 +23,14 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.beginTransaction();
+        try {
+            db.execSQL(Db.RibotProfileTable.CREATE);
+            //Add other tables here
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
     }
 
     @Override
