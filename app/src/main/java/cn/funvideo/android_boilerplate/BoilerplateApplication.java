@@ -3,10 +3,11 @@ package cn.funvideo.android_boilerplate;
 import android.app.Application;
 import android.content.Context;
 
+import org.androidannotations.annotations.EApplication;
+
+@EApplication
 public class BoilerplateApplication extends Application {
     public static BoilerplateApplication instance;
-
-    private static String androidId;
 
     public static BoilerplateApplication getInstance() {
         return instance;

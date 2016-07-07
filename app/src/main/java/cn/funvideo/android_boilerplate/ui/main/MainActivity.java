@@ -11,6 +11,7 @@ import org.androidannotations.annotations.EActivity;
 import java.util.List;
 
 import cn.funvideo.android_boilerplate.R;
+import cn.funvideo.android_boilerplate.data.SyncService;
 import cn.funvideo.android_boilerplate.data.model.Ribot;
 import cn.funvideo.android_boilerplate.ui.base.BaseActivity;
 
@@ -41,6 +42,8 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
         mainPresenter.attachView(this);
         mainPresenter.loadRibots();
+
+        startService(SyncService.getStartIntent(this));
     }
 
     @Override
