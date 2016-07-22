@@ -6,7 +6,9 @@ import org.androidannotations.annotations.EBean;
 import java.util.List;
 
 import cn.funvideo.android_boilerplate.data.DataManager;
+import cn.funvideo.android_boilerplate.data.model.HttpResult;
 import cn.funvideo.android_boilerplate.data.model.Ribot;
+import cn.funvideo.android_boilerplate.data.model.Subject;
 import cn.funvideo.android_boilerplate.ui.base.BasePresenter;
 import rx.Subscriber;
 import rx.Subscription;
@@ -17,8 +19,8 @@ import rx.schedulers.Schedulers;
 public class MainPresenter extends BasePresenter<MainMvpView> {
     @Bean
     DataManager dataManager;
-    private Subscription subscription;
-
+    private Subscription ribotSubscription;
+    private Subscription doubanSubscription;
 
     @Override
     public void attachView(MainMvpView mvpView) {
@@ -28,14 +30,18 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
     @Override
     public void detachView() {
         super.detachView();
-        if (subscription != null) {
-            subscription.unsubscribe();
+        if (ribotSubscription != null) {
+            ribotSubscription.unsubscribe();
+        }
+
+        if (doubanSubscription != null) {
+            doubanSubscription.unsubscribe();
         }
     }
 
     public void loadRibots() {
         checkViewAttached();
-        subscription = dataManager.getRibots()
+        ribotSubscription = dataManager.getRibots()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Subscriber<List<Ribot>>() {
@@ -55,6 +61,29 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
                         } else {
                             getMvpView().showRibots(ribots);
                         }
+                    }
+                });
+    }
+
+    public void loadMovides() {
+        checkViewAttached();
+        doubanSubscription = dataManager.getTopMovies()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<HttpResult<List<Subject>>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(HttpResult<List<Subject>> listHttpResult) {
+                        getMvpView().showSubjects(listHttpResult.getSubjects());
                     }
                 });
     }

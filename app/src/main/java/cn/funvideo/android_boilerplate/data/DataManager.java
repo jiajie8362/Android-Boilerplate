@@ -6,7 +6,9 @@ import org.androidannotations.annotations.EBean;
 import java.util.List;
 
 import cn.funvideo.android_boilerplate.data.local.DatabaseHelper;
+import cn.funvideo.android_boilerplate.data.model.HttpResult;
 import cn.funvideo.android_boilerplate.data.model.Ribot;
+import cn.funvideo.android_boilerplate.data.model.Subject;
 import cn.funvideo.android_boilerplate.data.remote.RemoteService;
 import rx.Observable;
 import rx.functions.Func1;
@@ -34,4 +36,7 @@ public class DataManager {
         return databaseHelper.getRibots().distinct();
     }
 
+    public Observable<HttpResult<List<Subject>>> getTopMovies() {
+        return service.newDoubanService().getTopMovies(0, 10);
+    }
 }

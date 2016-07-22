@@ -24,4 +24,14 @@ public class RemoteService {
                 .build();
         return retrofit.create(RibotsService.class);
     }
+
+    public DoubanService newDoubanService() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(DoubanService.ENDPOINT)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+
+        return retrofit.create(DoubanService.class);
+    }
 }

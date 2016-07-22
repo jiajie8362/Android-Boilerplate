@@ -3,6 +3,7 @@ package cn.funvideo.android_boilerplate.ui.main;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -13,6 +14,7 @@ import java.util.List;
 import cn.funvideo.android_boilerplate.R;
 import cn.funvideo.android_boilerplate.data.SyncService;
 import cn.funvideo.android_boilerplate.data.model.Ribot;
+import cn.funvideo.android_boilerplate.data.model.Subject;
 import cn.funvideo.android_boilerplate.ui.base.BaseActivity;
 
 @EActivity
@@ -22,6 +24,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     MainPresenter mainPresenter;
     private RecyclerView recyclerView;
     private RibotsAdapter ribotsAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +44,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mainPresenter.attachView(this);
-        mainPresenter.loadRibots();
+        mainPresenter.loadMovides();
 
         startService(SyncService.getStartIntent(this));
     }
@@ -50,6 +53,11 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     public void showRibots(List<Ribot> ribots) {
         ribotsAdapter.setRibots(ribots);
         ribotsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showSubjects(List<Subject> subjects) {
+        Log.d("subjects", subjects.toString());
     }
 
     @Override
